@@ -1,6 +1,5 @@
 # Import ENV vars
 from dotenv import load_dotenv
-
 load_dotenv()
 
 # App
@@ -10,6 +9,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Pinecone
 import pinecone
+from consts import INDEX_NAME
 
 pinecone.init(
     api_key=os.environ["PINECONE_API_KEY"],
@@ -35,7 +35,7 @@ def ingest_docs() -> None:
 
     print(f"Going to insert {len(documents)} to Pinecone")
     embeddings = OpenAIEmbeddings()
-    Pinecone.from_documents(documents[3969:], embeddings, index_name="docs")
+    Pinecone.from_documents(documents[3969:], embeddings, index_name=INDEX_NAME)
     print("****** Added to Pinecone vectorstore vectors")
 
 
